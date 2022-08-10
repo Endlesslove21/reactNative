@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     backgroundColor: "#fbfbfb",
   },
-
+  content: {},
   headingText: {
     marginTop: 130,
     textAlign: "center",
