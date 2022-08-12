@@ -1,11 +1,32 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import { Feather } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
 
-const FormLogin = () => {
+const FormLogin = (props) => {
+  const { onInputHandler } = props;
   const [isDisplay, setIsDisplay] = useState(true);
+  const [emailInput, setEmailInput] = useState("");
+  const [password, setPassword] = useState("");
 
+  const handleChangeEmailText = (enterEmailInput) => {
+    setEmailInput(enterEmailInput);
+  };
+
+  const handlePasswordInput = (enterPassword) => {
+    setPassword(enterPassword);
+  };
+
+  const handlePressLogin = () => {
+    onInputHandler(emailInput, password);
+  };
   const handleShowPassword = () => {
     setIsDisplay(!isDisplay);
   };
@@ -19,6 +40,8 @@ const FormLogin = () => {
             color="#bbb"
             placeholder="Email"
             placeholderTextColor="#ccc"
+            onChangeText={handleChangeEmailText}
+            style={{ width: "100%" }}
           />
         </View>
       </View>
@@ -31,7 +54,8 @@ const FormLogin = () => {
             placeholderTextColor="#ccc"
             color="#bbb"
             secureTextEntry={isDisplay}
-            style={{ width: 300 }}
+            onChangeText={handlePasswordInput}
+            style={{ width: "80%" }}
           />
           <Pressable onPress={handleShowPassword}>
             {isDisplay ? (
@@ -44,7 +68,7 @@ const FormLogin = () => {
       </View>
 
       <View style={styles.buttonView}>
-        <Pressable style={styles.loginButton}>
+        <Pressable onPress={handlePressLogin} style={styles.loginButton}>
           <Text style={styles.loginButtonText}>Login</Text>
         </Pressable>
 
@@ -61,6 +85,7 @@ export default FormLogin;
 const styles = StyleSheet.create({
   container: {
     marginTop: 80,
+    fontFamily: "Inspiration",
   },
   sectionView: {
     marginTop: 20,
